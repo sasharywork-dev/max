@@ -22,3 +22,38 @@ img { display: block; }
 .common-slideshow .fullscreen, .common-slideshow svg { display: none; }
 .rmwidget.video iframe { width: 100%; height: 100%; border: 0; display: block; }
 .rmwidget.full-height { top: 0 !important; height: calc(100vh / var(--zoom, 1)) !important; }
+
+/* Headings keep the snapshot's inline typography. */
+.text-viewer h1, .text-viewer h2 { margin: 0; font-size: inherit; font-weight: inherit; }
+
+/* Phone layout: Readymag's 390px canvas, shown below 768px instead of the desktop one. */
+#mags-m { display: none; width: 390px; }
+@media (max-width: 767px) {
+  #mags { display: none; }
+  #mags-m { display: block; }
+}
+#mags-m .page { position: relative; overflow: hidden; }
+#mags-m .content-scroll-wrapper, #mags-m .content-bounds { position: relative; }
+#mags-m .page-content-container { position: absolute; transform-origin: 0 0; }
+#mags-m .fixed-position-container, #mags-m .fixed-position-container-top { width: 390px; }
+#mags-m .above-pages-container {
+  position: fixed; top: 0; left: 0; width: 390px; height: calc(100vh / var(--zoom, 1));
+  z-index: 2000; pointer-events: none;
+}
+#mags-m .above-pages-container > * { position: absolute; pointer-events: auto; }
+#mags-m [data-menu] { display: none; }
+.menu-open #mags-m [data-menu] { display: block; }
+
+/* Keyboard focus. */
+a:focus-visible { outline: 2px solid rgb(19,108,222); outline-offset: 2px; }
+a:focus-visible > .rmwidget { outline: 2px solid rgb(19,108,222); outline-offset: 3px; }
+
+/* Instant press feedback (touch has no hover). */
+.common-button:active { transform: scale(0.97); transition: transform .1s ease-out; }
+a:active > .rmwidget:not(.widget-button), .text-viewer a:active { opacity: .7; }
+
+/* Contrast: grey captions on the white sidebar (blue button is darkened in import_readymag.py). */
+#mags .fixed-position-container span[style*="168, 168, 168"] { color: #767676 !important; }
+
+/* Static pictures (card logos) sit above the linked card shape; let clicks through to the link. */
+.widget-picture:not(.preview-enabled) { pointer-events: none; }
